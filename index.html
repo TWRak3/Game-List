@@ -1,92 +1,122 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="utf-8">
-  <title>Rak3 Tool - Official Downloads</title>
+  <meta charset="UTF-8">
+  <title>Rak3 Tool - Catalogo Giochi</title>
   <style>
     body {
       background-color: #0d0d0d;
-      color: #f5f5f5;
+      color: #fff;
       font-family: "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 30px;
       text-align: center;
-      margin-top: 10%;
     }
-    h1 { color: #00bfff; }
-    button {
-      background: #00bfff;
+
+    h1 {
+      color: #00bfff;
+      margin-bottom: 30px;
+    }
+
+    .catalogo {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+    }
+
+    .gioco {
+      background-color: #111;
+      border-radius: 15px;
+      padding: 15px;
+      width: 160px;
+      box-shadow: 0 0 10px #000;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .gioco:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #00bfff;
+    }
+
+    .gioco img {
+      width: 100%;
+      height: 220px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .scarica {
+      background-color: #00bfff;
       color: white;
       border: none;
       border-radius: 10px;
-      padding: 12px 30px;
-      font-size: 16px;
+      padding: 8px 0;
+      width: 100%;
+      font-size: 15px;
+      margin-top: 10px;
       cursor: pointer;
       transition: 0.2s;
     }
-    button:hover { background: #0099cc; }
-    .progress { width: 300px; height: 12px; margin: 15px auto; background: #222; border-radius: 8px; }
-    .bar { height: 100%; width: 0%; background: #00ff80; border-radius: 8px; }
-    #status { margin-top: 10px; font-size: 14px; color: #aaa; }
+
+    .scarica:hover {
+      background-color: #0099cc;
+    }
+
+    .footer {
+      margin-top: 40px;
+      font-size: 14px;
+      color: #aaa;
+    }
   </style>
 </head>
 <body>
-  <h1>🚀 Rak3 Tool Downloader</h1>
-  <p>Applicazione gratuita creata da <b>Rak3</b> — se l’hai pagata, sei stato truffato!</p>
 
-  <button id="downloadBtn">Scarica Rak3 Tool</button>
-  <div class="progress"><div class="bar" id="bar"></div></div>
-  <div id="status"></div>
+  <h1>🎮 Catalogo Giochi - Rak3 Tool</h1>
+  <p>Applicazioni e giochi gratuiti creati e gestiti da <b>Rak3</b>.  
+     Se hai pagato per scaricarli, sei stato truffato ⚠️</p>
+
+  <div class="catalogo">
+    <div class="gioco">
+      <img src="https://imgs.search.brave.com/7Z4Kwqrhl0U6WWRHamtS8AjcAmGxAtmNfEMrbAdNgbg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZGtw/LmItY2RuLm5ldC9p/bWFnZXMvZ2FtZXMv/NTY0MDQ2MS9tb3Rv/ci10b3duLWJlaGlu/ZC10aGUtd2hlZWwt/ZGVza3RvcC1sb2dv/LWFsbC53ZWJwP3dp/ZHRoPTQwMA" alt="Motor Town">
+      <button class="scarica" onclick="download('https://raw.githubusercontent.com/TWRak3/Game-List/main/file/st-setup-1.8.17r2.exe')">Scarica</button>
+    </div>
+
+    <div class="gioco">
+      <img src="https://thumbnails.pcgamingwiki.com/f/f5/BeamNG.drive_cover.jpg/300px-BeamNG.drive_cover.jpg" alt="BeamNG Drive">
+      <button class="scarica" onclick="download('https://raw.githubusercontent.com/TWRak3/Game-List/main/file/example.exe')">Scarica</button>
+    </div>
+
+    <div class="gioco">
+      <img src="https://thumbnails.pcgamingwiki.com/d/d8/Sons_of_the_Forest_cover.jpg/300px-Sons_of_the_Forest_cover.jpg" alt="Sons Of The Forest">
+      <button class="scarica" onclick="download('https://raw.githubusercontent.com/TWRak3/Game-List/main/file/sonsforest.exe')">Scarica</button>
+    </div>
+
+    <div class="gioco">
+      <img src="https://imgs.search.brave.com/OOYA_TyXDknTahVlnz2SFxDeDeE0G_vH8tIr3-6Jw78/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9yZXBh/Y2suaW5mby91cGxv/YWRzL3Bvc3RzLzIw/MjQtMDMvMTcwOTgz/Mzc3OV9wb3N0ZXIu/d2VicA" alt="Taxi Life">
+      <button class="scarica" onclick="download('https://raw.githubusercontent.com/TWRak3/Game-List/main/file/taxilife.exe')">Scarica</button>
+    </div>
+
+    <div class="gioco">
+      <img src="https://images.pcgamingwiki.com/d/d5/FarmingSimulator25Cover.jpg" alt="Farming Simulator 25">
+      <button class="scarica" onclick="download('https://raw.githubusercontent.com/TWRak3/Game-List/main/file/fs25.exe')">Scarica</button>
+    </div>
+  </div>
+
+  <div class="footer">
+    © 2025 Rak3 Tool — Tutti i diritti riservati
+  </div>
 
   <script>
-    const btn = document.getElementById('downloadBtn');
-    const bar = document.getElementById('bar');
-    const status = document.getElementById('status');
-    const fileUrl = "https://raw.githubusercontent.com/TWRak3/Game-List/main/file/st-setup-1.8.17r2.exe";
-
-    async function download() {
-      btn.disabled = true;
-      btn.textContent = "Download in corso...";
-      status.textContent = "Inizializzazione...";
-      bar.style.width = "0%";
-
-      try {
-        const res = await fetch(fileUrl);
-        if (!res.ok) throw new Error("Errore: " + res.status);
-        const reader = res.body.getReader();
-        const total = parseInt(res.headers.get("Content-Length") || "0");
-        let received = 0;
-        const chunks = [];
-
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          chunks.push(value);
-          received += value.length;
-          if (total) {
-            const pct = Math.round((received / total) * 100);
-            bar.style.width = pct + "%";
-            status.textContent = pct + "% completato";
-          }
-        }
-
-        const blob = new Blob(chunks);
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(blob);
-        a.download = "Rak3Tool.exe";
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-
-        status.textContent = "✅ Download completato!";
-      } catch (err) {
-        status.textContent = "Errore: " + err.message;
-      } finally {
-        btn.disabled = false;
-        btn.textContent = "Scarica Rak3 Tool";
-        setTimeout(() => { status.textContent = ""; bar.style.width = "0%"; }, 4000);
-      }
+    function download(url) {
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = url.split("/").pop();
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
     }
-
-    btn.addEventListener("click", download);
   </script>
+
 </body>
 </html>
