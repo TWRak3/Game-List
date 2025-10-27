@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <title>Rak3 Tool - Official Downloads</title>
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: #f5f5f5;
+      font-family: "Segoe UI", sans-serif;
+      text-align: center;
+      margin-top: 10%;
+    }
+    h1 { color: #00bfff; }
+    button {
+      background: #00bfff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 30px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    button:hover { background: #0099cc; }
+    .progress { width: 300px; height: 12px; margin: 15px auto; background: #222; border-radius: 8px; }
+    .bar { height: 100%; width: 0%; background: #00ff80; border-radius: 8px; }
+    #status { margin-top: 10px; font-size: 14px; color: #aaa; }
+  </style>
+</head>
+<body>
+  <h1>🚀 Rak3 Tool Downloader</h1>
+  <p>Applicazione gratuita creata da <b>Rak3</b> — se l’hai pagata, sei stato truffato!</p>
+
+  <button id="downloadBtn">Scarica Rak3 Tool</button>
+  <div class="progress"><div class="bar" id="bar"></div></div>
+  <div id="status"></div>
+
+  <script>
+    const btn = document.getElementById('downloadBtn');
+    const bar = document.getElementById('bar');
+    const status = document.getElementById('status');
+    const fileUrl = "https://raw.githubusercontent.com/TUONOME/rak3tool-site/main/files/rak3tool.zip";
+
+    async function download() {
+      btn.disabled = true;
+      btn.textContent = "Download in corso...";
+      status.textContent = "Inizializzazione...";
+      bar.style.width = "0%";
+
+      try {
+        const res = await fetch(fileUrl);
+        if (!res.ok) throw new Error("Errore: " + res.status);
+        const reader = res.body.getReader();
+        const total = parseInt(res.headers.get("Content-Length") || "0");
+        let received = 0;
+        const chunks = [];
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          chunks.push(value);
+          received += value.length;
+          if (total) {
+            const pct = Math.round((received / total) * 100);
+            bar.style.width = pct + "%";
+            status.textContent = pct + "% completato";
+          }
+        }
+
+        const blob = new Blob(chunks);
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "Rak3Tool.exe";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+
+        status.textContent = "✅ Download completato!";
+      } catch (err) {
+        status.textContent = "Errore: " + err.message;
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Scarica Rak3 Tool";
+        setTimeout(() => { status.textContent = ""; bar.style.width = "0%"; }, 4000);
+      }
+    }
+
+    btn.addEventListener("click", download);
+  </script>
+</body>
+</html>
